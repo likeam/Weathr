@@ -14,7 +14,7 @@ const BackgroundLayout = () => {
 
   const [image, setImage] = useState(Clear);
 
-  console.log(weather);
+
 
   useEffect(() => {
 

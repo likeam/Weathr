@@ -7,19 +7,20 @@ import Rain from "../assets/icons/rain.png";
 import Snow from "../assets/icons/snow.png";
 import Storm from "../assets/icons/storm.png";
 import Wind from "../assets/icons/windy.png";
-import { useStateContext } from "../Context/myContext";
+
 
 import "../index.css";
 
-const WeatherCard = () => {
-  const { weather, place } = useStateContext();
+const WeatherCard = ({  temperature,
+  windspeed,
+  humidity,
+  place,
+  heatIndex,
+  iconString,
+  conditions, }) => {
+ 
 
-  const windspeed = weather.wspd;
-  const humidity = weather.humidity;
-  const temperature = weather.temp;
-  const heatIndex = weather.heatindex;
-  const iconString = weather.conditions;
-  const conditions = weather.conditions;
+ 
 
   const [icon, setIcon] = useState(Sun);
   const { time } = useDate();
@@ -62,12 +63,12 @@ const WeatherCard = () => {
         <p className="flex-1 p-2 text-center">{time}</p>
       </div>
       <div className="flex items-center justify-center w-full gap-4 mt4">
-        <p className="flex-1 font-bold text-center bg-blue-600 rounded-lg shadow p2">
-          Wind Speed <p className="font-normal">{windspeed} km/h</p>
-        </p>
-        <p className="flex-1 font-bold text-center bg-green-600 rounded-lg p2">
+        <div className="flex-1 font-bold text-center bg-blue-600 rounded-lg shadow p2">
+          Wind Speed 
+          <p className="font-normal">{windspeed} km/h</p></div>
+        <div className="flex-1 font-bold text-center bg-green-600 rounded-lg p2">
           Humidity <p className="font-normal">{humidity} gm/m&#179;</p>
-        </p>
+        </div>
       </div>
       <div className="flex items-center justify-center w-full p-3 mt-4">
         <p className="text-lg font-semibold">Heat Index</p>

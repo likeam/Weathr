@@ -46,7 +46,7 @@ export const StateContextProvider = ({children}) => {
 
     useEffect(() => {
         fetchWeather()
-    }, [place])
+    }, [ place])
 
     useEffect(() => {
         console.log(values)
