@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import axios from 'axios'
 
 
 const StateContext = createContext();
@@ -7,35 +8,36 @@ export const StateContextProvider = ({children}) => {
 
     const [weather, setWeather] = useState({});
     const [values, setValues] = useState([]);
-    const [place, setPlace] = useState("Gujranwala"); 
+    const [place, setPlace] = useState('Gujranwala'); 
     const [location, setLocation] = useState("");
 
     const fetchWeather = async () => {
-        const axios = require('axios');
+        
 
         const options = {
           method: 'GET',
           url: 'https://visual-crossing-weather.p.rapidapi.com/forecast',
           params: {
             aggregateHours: '24',
-            location: 'Washington,DC,USA',
-            contentType: 'csv',
-            unitGroup: 'us',
+            location: place,
+            contentType: 'json',
+            unitGroup: 'metric',
             shortColumnNames: '0'
           },
           headers: {
-            'X-RapidAPI-Key': import.meta.env.VITE_API_KEY,
+            'X-RapidAPI-Key': '5ff617a7f4msha2a652d5414c58bp1fa926jsn672f503fb2f3',
             'X-RapidAPI-Host': 'visual-crossing-weather.p.rapidapi.com'
           }
         };
         
         try {
             const response = await axios.request(options);
-            console.log(response.data);
-            const data = Object.values(response.data.locations)[0]
-            setLocation(data.address)
-            setValue(data.values)
-            setWeather(data.values[0])
+            
+           
+            const thisData = Object.values(response.data.locations)[0]
+            setLocation(thisData.address)
+            setValues(thisData.values)
+            setWeather(thisData.values[0])
         } catch (error) {
             console.error(error);
             alert('This Place dones not exist')
@@ -43,7 +45,7 @@ export const StateContextProvider = ({children}) => {
     }
 
     useEffect(() => {
-        //fetchWeather()
+        fetchWeather()
     }, [place])
 
     useEffect(() => {
